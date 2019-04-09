@@ -21,7 +21,7 @@ function longestCommonPrefix(strArr) {
     var prefix = strArr[0];
     
     for(var str of strArr) {
-        for(let i = 0; i < prefix.length; i++) {
+        for(var i = 0; i < prefix.length; i++) {
             if(str[i] !== prefix[i]) {
                 prefix = prefix.slice(0, i);
             }
