@@ -12,16 +12,17 @@ function wordCount(str, delimiter, antiDelimiter) {
         if(str[i] == delimiter) {
             hasDelimiter = true;
             
-            if(str[i + 1] == antiDelimiter) {
-                hasAntiDelimiter = true;
-            }
-            
-            if(str[i - 1] == antiDelimiter) {
+            if(str[i + 1] == antiDelimiter || str[i - 1] == antiDelimiter) {
                 hasAntiDelimiter = true;
             }
         }
         
         if(str[i] == delimiter || i == str.length - 1) {
+            if(str[i - 1] != delimiter && str[i - 1] != antiDelimiter 
+            && str[i + 1] != delimiter && str[i + 1] != antiDelimiter) {
+                hasAntiDelimiter = false;
+            }
+            
             if(str.slice(delimeterIndex, i) != delimiter) {
                 if(hasAntiDelimiter && hasDelimiter) { 
                     hasAntiDelimiter = false;    
