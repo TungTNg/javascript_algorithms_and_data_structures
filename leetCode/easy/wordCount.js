@@ -37,7 +37,7 @@ function wordCount(str, delimiter, antiDelimiter) {
         
     }
     
-    return resultStrArr.length;
+    return resultStrArr;
 }
 
 // Sample output logics
