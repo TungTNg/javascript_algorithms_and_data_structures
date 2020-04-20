@@ -40,6 +40,11 @@
  * @param {number[]} tree
  * @return {number}
  */
+ 
+ 
+// totalFruit([1,0,1,4,1,4,1,2,3])
+ 
+// O(n^3)
 // var totalFruit = function(treeArr) {
 //     var maxFruit = 0;
     
@@ -52,7 +57,6 @@
 //             }
             
 //             if(Object.keys(basket).length > 2) {
-//                 basket[treeArr[j]] = undefined;
 //                 break;
 //             }
             
@@ -64,43 +68,132 @@
             
 //             maxFruit = Math.max(maxFruit, countFruit);
 //         }
-
+        
 //     }
     
 //     return maxFruit;
 // };
 
+
+// O(n^2)
+// var totalFruit = function(treeArr) {
+//     var maxFruit = 0;
+    
+//     for(var i = 0; i < treeArr.length; i++) {
+//         var basket = {};
+//         var basketSize = 0;
+//         var firstFruit;
+//         var secondFruit;
+        
+//         for(var j = i; j < treeArr.length; j++) {
+//             if(basketSize <= 2 ) {
+//                 if(!(treeArr[j] in basket)) {
+//                     basketSize++;
+//                 }
+//                 if(basketSize <= 1) {
+//                     firstFruit = treeArr[j];
+//                 } else if (basketSize == 2 && firstFruit !== treeArr[j]) {
+//                     secondFruit = treeArr[j];
+//                 }
+//                 basket[treeArr[j]] = (basket[treeArr[j]] || 0) + 1;
+//             }
+            
+//             if(basketSize > 2) {
+//                 break;
+//             }
+            
+//             var countFruit = (basketSize < 2) ? basket[firstFruit] : basket[firstFruit] + basket[secondFruit];
+
+//             maxFruit = Math.max(maxFruit, countFruit);
+//         }
+        
+//     }
+    
+//     return maxFruit;
+// };
+
+// O(n)
+// var totalFruit = function(tree) {
+    
+//     let result = 0;
+//     let basket = new Map(); // Contains a list of types of fruit we currently carry
+    
+//     // Pointers:
+//     //  l (left) - Start index of the current sub-array of trees (two types)
+//     //  m (medium) - Index of the tree with the latest type of fruit 
+//     //  r (right) - Index of the current tree
+    
+//     for(var l = 0, m = 0, r = 0; r < tree.length; r++) {
+//         // Add every unique type of fruit to the basket
+//         if(!basket.has(tree[r])) basket.set(tree[r], true);
+        
+//         // Basket overflow 
+//         if(basket.size > 2) {
+//             // Summarize
+//             result = Math.max(result, r - l);
+//             // Empty the basket and put previous and current types of fruits there
+//             basket.clear();
+//             l = m;
+//             basket.set(tree[l], true);
+//             basket.set(tree[r], true);
+
+//         }
+            
+//         // Keep in mind the tree where we meet the latest type of fruit
+//         if(tree[m] !== tree[r]) {
+//             m = r;
+//         }
+        
+//         // console.log('left: ' + l);
+//         // console.log('middle: ' + m);
+//         // console.log('right: ' + r);
+//         // console.log('basket: ');
+//         // console.log(basket);
+//     }
+    
+//     // Final decision
+//     return Math.max(result, r - l);
+// };
+
 var totalFruit = function(tree) {
     
     let result = 0;
-    let basket = []; // Contains a list of types of fruit we currently carry
+    // Contains a list of types of fruit we currently carry
+    let basket = new Map(); 
     
     // Pointers:
     //  l (left) - Start index of the current sub-array of trees (two types)
     //  m (medium) - Index of the tree with the latest type of fruit 
     //  r (right) - Index of the current tree
     
-    for(var l = 0, m = 0, r = 0; r < tree.length; r++) {
+    var l = 0;
+    var m = 0; 
+    var r = 0;
+    
+    while(r < tree.length) {
         // Add every unique type of fruit to the basket
-        basket.includes(tree[r]) || basket.push(tree[r]);
+        basket.set(tree[r], true);
         
         // Basket overflow 
-        if(basket.length > 2) {
-            // Summarize
-            result = Math.max(result, r - l);
+        if(basket.size > 2) {
             // Empty the basket and put previous and current types of fruits there
+            basket.clear();
             l = m;
-            basket = [tree[l], tree[r]];
+            basket.set(tree[l], true);
+            basket.set(tree[r], true);
         }
-        
+            
         // Keep in mind the tree where we meet the latest type of fruit
         if(tree[m] !== tree[r]) {
             m = r;
         }
+        
+        result = Math.max(result, r - l + 1);
+        r++;
     }
     
     // Final decision
-    return Math.max(result, r - l);
+    return result;
 };
 
 console.log(totalFruit([1]));

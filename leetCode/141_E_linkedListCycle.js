@@ -18,15 +18,13 @@ var hasCycle = function(head) {
     if(head == null) return false;
     
     var slow = head;
-    var fast = head.next;
+    var fast = head;
     
-    while(slow && fast && fast.next) {
-        if(slow == fast) return true;
-        
+    while(fast && fast.next) {        
         slow = slow.next;
         fast = fast.next.next;
+        if(slow == fast) return true;
     }
     
     return false;
 }; 
-

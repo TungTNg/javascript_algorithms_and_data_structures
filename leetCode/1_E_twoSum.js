@@ -46,17 +46,17 @@
 // console.log(twoSum(testArray, 9));
 
 const twoSum = (nums, target) => {
-  const map = {};
+  const numRecordObj = {};
 
   for (let i = 0; i < nums.length; i++) {
-    const another = target - nums[i];
+    const goalNumber = target - nums[i];
 
-    if (another in map) {
-      return [map[another], i];
+    if (goalNumber in numRecordObj) {
+      return [numRecordObj[goalNumber], i];
     }
 
-    map[nums[i]] = i;
-    console.log(map);
+    numRecordObj[nums[i]] = i;
+    console.log(numRecordObj);
   }
 
   return null;

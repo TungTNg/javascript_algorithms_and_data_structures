@@ -1,18 +1,16 @@
-function maxSubarraySum(arr, consecutiveNum){
-  if (arr.length < consecutiveNum) return null;
+function maxSubarraySum(arr, consNum){
+  if (arr.length < consNum) return null;
   let maxSum = 0;
   
-  for(let i = 0; i < consecutiveNum; i++) {
+  for(let i = 0; i < consNum; i++) {
       maxSum += arr[i];
   }
   
-  let maxTemp = maxSum;
-  for(let i = consecutiveNum; i < arr.length; i++) {
+  let tempSum = maxSum;
+  for(let i = consNum; i < arr.length; i++) {
 
-    maxTemp += arr[i] - arr[i - consecutiveNum];
-    if(maxTemp > maxSum) {
-        maxSum = maxTemp;
-    }
+    tempSum = tempSum + arr[i] - arr[i - consNum];
+    maxSum = Math.max(maxSum, tempSum);
   }
   
   return maxSum;
