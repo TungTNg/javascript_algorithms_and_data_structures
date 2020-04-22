@@ -6,12 +6,12 @@ function sameFrequency(num1, num2) {
     }
     
     let frequencyCounter1 = {};
-    for(let val of num1Str.split("")) {
-        frequencyCounter1[val] = (frequencyCounter1[val] | 0) + 1;
+    for(let val of num1Str) {
+        frequencyCounter1[val] = (frequencyCounter1[val] || 0) + 1;
     }
     let frequencyCounter2 = {};
-    for(let val of num2Str.split("")) {
-        frequencyCounter2[val] = (frequencyCounter2[val] | 0) + 1;
+    for(let val of num2Str) {
+        frequencyCounter2[val] = (frequencyCounter2[val] || 0) + 1;
     }
     
     for(let key in frequencyCounter1) {

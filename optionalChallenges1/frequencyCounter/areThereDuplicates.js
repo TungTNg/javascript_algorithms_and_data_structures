@@ -4,7 +4,7 @@ function areThereDuplicates() {
     let frequencyCounter = {};
     
     for(let val of arguments) {
-        frequencyCounter[val] = (frequencyCounter[val] | 0) + 1;
+        frequencyCounter[val] = (frequencyCounter[val] || 0) + 1;
         if(frequencyCounter[val] > 1) {
             return true;
         }

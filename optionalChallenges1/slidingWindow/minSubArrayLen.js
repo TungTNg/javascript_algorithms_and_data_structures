@@ -20,9 +20,9 @@ function minSubArrayLen(nums, sum) {
     } 
     // current total less than required total but we reach the end, need this or else we'll be in an infinite loop 
     else {
-      break;
+      start++;
       // or
-      // start++;
+      // break;
     }
   }
  
