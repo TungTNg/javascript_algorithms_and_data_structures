@@ -27,18 +27,44 @@
  * @param {number} K
  * @return {string}
  */
+// var licenseKeyFormatting = function(S, K) {
+//     var resultStr = "";
+//     var licenseStr = S.split("-").join("");
+//     var kCounter = 1;
+    
+//     for(var i = licenseStr.length - 1; i >= 0; i--) {
+//         resultStr = licenseStr[i].toUpperCase() + resultStr;
+//         if(kCounter % K == 0 && i !== 0) {
+//             resultStr = "-" + resultStr;
+//         }
+//         kCounter++;    
+//     }
+    
+//     return resultStr;
+// };
+
 var licenseKeyFormatting = function(S, K) {
+    var joinedStr = "";
     var resultStr = "";
-    var licenseStr = S.split("-").join("");
     var kCounter = 1;
     
-    for(var i = licenseStr.length - 1; i >= 0; i--) {
-        resultStr = licenseStr[i].toUpperCase() + resultStr;
-        if(kCounter % K == 0 && i !== 0) {
-            resultStr = "-" + resultStr;
+    for(var char of S) {
+        if(char !== "-") {
+            joinedStr += char.toUpperCase();
         }
-        kCounter++;    
+    }
+    
+    for(var i = joinedStr.length - 1; i >= 0; i--) {
+        if(kCounter % K == 0 && i !== 0) {
+            resultStr = "-" + joinedStr[i] + resultStr;
+        } else {
+            resultStr = joinedStr[i] + resultStr;
+        }
+        kCounter++;
     }
     
     return resultStr;
 };
+
+console.log(licenseKeyFormatting("5F3Z-2e-9-w", 4));
+console.log(licenseKeyFormatting("2-5g-3-J", 2));
