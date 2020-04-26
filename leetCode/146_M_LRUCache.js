@@ -39,8 +39,8 @@
 *******************/
 var LRUCache = function(capacity) {
   this.capacity = capacity; 
-  this.map = new Map(); //this stores the whole array
-
+  this.map = {}; //this stores the whole array
+  this.size = 0;
   //boundaries for double LL
   this.head = {}; 
   this.tail = {};
@@ -53,13 +53,12 @@ var LRUCache = function(capacity) {
  * @return {number}
  */
 LRUCache.prototype.get = function(key) {
-  if(this.map.has(key)){
+  if(key in this.map){
     //remove elem from current position
-    let c = this.map.get(key);
+    let c = this.map[key];
     c.prev.next = c.next;
     c.next.prev = c.prev;
 
-    
     this.tail.prev.next = c; //insert it after the last element (elem before tail) since we just used it
     c.prev = this.tail.prev; //update c.prev and next pointer
     c.next = this.tail;
@@ -76,15 +75,16 @@ LRUCache.prototype.get = function(key) {
  * @return {void}
  */
 LRUCache.prototype.put = function(key, value) {
-  if(this.get(key) !== -1){ //key does not exist, update last element value 
+  if(this.get(key) !== -1){ //key does exist, remove key current position & & move key to last element & update value 
     this.tail.prev.value = value; 
   } else {
     //need to check if map size is at capacity
-    if(this.map.size === this.capacity) { 
+    if(this.size === this.capacity) { 
       //delete item both from map and DLL
-      this.map.delete(this.head.next.key); //delete first element of list
+      delete this.map[this.head.next.key]; //delete first element of list
       this.head.next = this.head.next.next; //update first element as next element
       this.head.next.prev = this.head; 
+      this.size--;
     }
 
     let newNode = {
@@ -94,10 +94,132 @@ LRUCache.prototype.put = function(key, value) {
     
     
     //When adding a new node, we need to update both map and DLL
-    this.map.set(key, newNode); //add current node to map 
+    this.map[key] = newNode; //add current node to map 
     this.tail.prev.next = newNode; //add node to end of the list
     newNode.prev = this.tail.prev; //update prev and next pointers of newNode
     newNode.next = this.tail;
     this.tail.prev = newNode; //update last element
+    this.size++;  
   }
 };
+
+// Linked List and HashMap
+// /**
+// * @param {number} capacity
+// */
+// var LRUCache = function(capacity) {
+//   this.capacity = capacity;
+//   this.length = 0;
+//   this.map = {};
+//   this.head = new Node();
+//   this.tail = new Node();
+//   this.head.next = this.tail;
+//   this.tail.prev = this.head;
+// };
+
+// /**
+// * @param {number} key
+// * @return {number}
+// */
+// LRUCache.prototype.get = function(key) {
+//   if (!(key in this.map)) {
+//     return -1;
+//   }
+//   disconnect(this.map[key]);
+//   insertAfter(this.map[key], this.head);
+//   return this.map[key].val;
+// };
+
+// /**
+// * @param {number} key
+// * @param {number} value
+// * @return {void}
+// */
+// LRUCache.prototype.put = function(key, value) {
+//   if (!(key in this.map)) {
+//     this.map[key] = new Node(key, value);
+//     this.length += 1;
+//   } else {
+//     this.map[key].val = value;
+//     disconnect(this.map[key]);
+//   }
+//   insertAfter(this.map[key], this.head);
+//   if (this.length > this.capacity) {
+//     delete this.map[this.tail.prev.key];
+//     this.length -= 1;
+//     disconnect(this.tail.prev);
+//   }
+// };
+
+// function insertAfter(a, b) {
+//   a.next = b.next;
+//   a.next.prev = a;
+//   b.next = a;
+//   a.prev = b;
+// }
+
+// function disconnect(node) {
+//   node.prev.next = node.next;
+//   node.next.prev = node.prev;
+// }
+
+// class Node {
+//   constructor(key, val) {
+//     this.key = key;
+//     this.val = val;
+//     this.prev = null;
+//     this.next = null;
+//   }
+// }
+
+// /**
+// * Your LRUCache object will be instantiated and called as such:
+// * var obj = new LRUCache(capacity)
+// * var param_1 = obj.get(key)
+// * obj.put(key,value)
+// */
+
+// Map
+// Thanks to https://leetcode.com/problems/lru-cache/discuss/399146/Clean-JavaScript-solution
+
+// /**
+// * @param {number} capacity
+// */
+// var LRUCache = function(capacity) {
+//   this.capacity = capacity;
+//   this.map = new Map();
+// };
+
+// /**
+// * @param {number} key
+// * @return {number}
+// */
+// LRUCache.prototype.get = function(key) {
+//   if (!this.map.has(key)) {
+//     return -1;
+//   }
+//   const val = this.map.get(key);
+//   this.map.delete(key);
+//   this.map.set(key, val);
+//   return val;
+// };
+
+// /**
+// * @param {number} key
+// * @param {number} value
+// * @return {void}
+// */
+// LRUCache.prototype.put = function(key, value) {
+//   this.map.delete(key);
+//   this.map.set(key, value);
+//   if (this.map.size > this.capacity) {
+//     this.map.delete(this.map.keys().next().value);
+//   }
+// };
+
+// /**
+// * Your LRUCache object will be instantiated and called as such:
+// * var obj = new LRUCache(capacity)
+// * var param_1 = obj.get(key)
+// * obj.put(key,value)
+// */
