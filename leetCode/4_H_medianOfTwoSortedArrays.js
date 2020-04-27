@@ -22,6 +22,47 @@
  * @param {number[]} nums2
  * @return {number}
  */
+ 
+// Merge + Sort 2 arrays into 1 array then find the median of the new merged sorted array
+// O(n) time
+//  var findMedianSortedArrays = function(nums1, nums2) {
+//     var mergedSortedArr = [];
+    
+//     var p1 = 0;
+//     var p2 = 0;
+//     var median = 0;
+    
+//     while(p1 < nums1.length && p2 < nums2.length) {
+//         if(nums1[p1] < nums2[p2]) {
+//             mergedSortedArr.push(nums1[p1]);
+//             p1++;
+//         } else {
+//             mergedSortedArr.push(nums2[p2]);
+//             p2++;
+//         }
+//     }
+    
+//     while(p1 < nums1.length) {
+//         mergedSortedArr.push(nums1[p1]);
+//         p1++;
+//     }
+    
+//     while(p2 < nums2.length) {
+//         mergedSortedArr.push(nums2[p2]);
+//         p2++;
+//     }
+    
+//     if(mergedSortedArr.length % 2 !== 0) {
+//         median = mergedSortedArr[(mergedSortedArr.length - 1) / 2];
+//     } else {
+//         median = (mergedSortedArr[(mergedSortedArr.length) / 2] + mergedSortedArr[Math.floor((mergedSortedArr.length - 1) / 2)]) / 2;
+//     }
+    
+//     return median;
+// };
+
+
+// O(log(n)) time solution
 var findMedianSortedArrays = function(nums1, nums2) {
     if(nums1.length > nums2.length) {
         return findMedianSortedArrays(nums2, nums1);
