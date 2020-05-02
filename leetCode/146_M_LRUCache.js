@@ -37,16 +37,16 @@
 * to keep track of the order when elements are retrieved or added. 
 * There are two pointers per node which is relatively low cost to manage the ordering.
 *******************/
-var LRUCache = function(capacity) {
-  this.capacity = capacity; 
-  this.map = {}; //this stores the whole array
-  this.size = 0;
-  //boundaries for double LL
-  this.head = {}; 
-  this.tail = {};
-  this.head.next = this.tail; //initialize double LL
-  this.tail.prev = this.head;
-};
+// var LRUCache = function(capacity) {
+//   this.capacity = capacity; 
+//   this.map = {}; //this stores the whole array
+//   this.size = 0;
+//   //boundaries for double LL
+//   this.head = {}; 
+//   this.tail = {};
+//   this.head.next = this.tail; //initialize double LL
+//   this.tail.prev = this.head;
+// };
 
 /** 
  * @param {number} key
@@ -109,7 +109,7 @@ var LRUCache = function(capacity) {
 // */
 var LRUCache = function(capacity) {
   this.capacity = capacity;
-  this.length = 0;
+  this.size = 0;
   this.map = {};
   this.head = new Node();
   this.tail = new Node();
@@ -138,15 +138,15 @@ LRUCache.prototype.get = function(key) {
 LRUCache.prototype.put = function(key, value) {
   if (!(key in this.map)) {
     this.map[key] = new Node(key, value);
-    this.length += 1;
+    this.size += 1;
   } else {
     this.map[key].val = value;
     disconnect(this.map[key]);
   }
   insertAfter(this.map[key], this.head);
-  if (this.length > this.capacity) {
+  if (this.size > this.capacity) {
     delete this.map[this.tail.prev.key];
-    this.length -= 1;
+    this.size -= 1;
     disconnect(this.tail.prev);
   }
 };
