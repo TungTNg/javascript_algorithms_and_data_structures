@@ -107,6 +107,16 @@
 // /**
 // * @param {number} capacity
 // */
+
+class Node {
+  constructor(key, val) {
+    this.key = key;
+    this.val = val;
+    this.prev = null;
+    this.next = null;
+  }
+}
+
 var LRUCache = function(capacity) {
   this.capacity = capacity;
   this.size = 0;
@@ -117,6 +127,18 @@ var LRUCache = function(capacity) {
   this.tail.prev = this.head;
 };
 
+function insertNodeBeforeTail(node, tailNode) {
+  node.next = tailNode;
+  node.prev = tailNode.prev;
+  tailNode.prev.next = node;
+  tailNode.prev = node;
+}
+
+function disconnectNode(node) {
+  node.prev.next = node.next;
+  node.next.prev = node.prev;
+}
+
 /**
 * @param {number} key
 * @return {number}
@@ -124,10 +146,11 @@ var LRUCache = function(capacity) {
 LRUCache.prototype.get = function(key) {
   if (!(key in this.map)) {
     return -1;
+  } else {
+    disconnectNode(this.map[key]);
+    insertNodeBeforeTail(this.map[key], this.tail);
+    return this.map[key].val;
   }
-  disconnect(this.map[key]);
-  insertAfter(this.map[key], this.head);
-  return this.map[key].val;
 };
 
 /**
@@ -141,36 +164,15 @@ LRUCache.prototype.put = function(key, value) {
     this.size += 1;
   } else {
     this.map[key].val = value;
-    disconnect(this.map[key]);
+    disconnectNode(this.map[key]);
   }
-  insertAfter(this.map[key], this.head);
+  insertNodeBeforeTail(this.map[key], this.tail);
   if (this.size > this.capacity) {
-    delete this.map[this.tail.prev.key];
+    delete this.map[this.head.next.key];
     this.size -= 1;
-    disconnect(this.tail.prev);
+    disconnectNode(this.head.next);
   }
 };
-
-function insertAfter(a, b) {
-  a.next = b.next;
-  a.next.prev = a;
-  b.next = a;
-  a.prev = b;
-}
-
-function disconnect(node) {
-  node.prev.next = node.next;
-  node.next.prev = node.prev;
-}
-
-class Node {
-  constructor(key, val) {
-    this.key = key;
-    this.val = val;
-    this.prev = null;
-    this.next = null;
-  }
-}
 
 // /**
 // * Your LRUCache object will be instantiated and called as such:
