@@ -1,3 +1,5 @@
+// Given an array of intergers and a number, write a function called maxSubarraySum, which finds the maximum sum of a subarray with the length of the number passed to the function.
+
 function maxSubarraySum(arr, consNum){
   if (arr.length < consNum) return null;
   let maxSum = 0;
