@@ -5,7 +5,7 @@ function flatten(arr) {
     
     for(var i = 0; i < arr.length; i++) {
         if(Array.isArray(arr[i])) {
-            resultArr.concat(flatten(arr[i]));
+            resultArr = resultArr.concat(flatten(arr[i]));
         } else {
             resultArr.push(arr[i]);
         }
