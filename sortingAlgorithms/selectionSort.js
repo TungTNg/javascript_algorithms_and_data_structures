@@ -4,7 +4,8 @@
 // If the "minimum" is not the value (index) you initially began with, swap the two values.
 // Repeat this with the next element until the array is sorted.
 
-// Time Complexity: O(n^2)
+// Time Complexity: O(n^2) worst
+// O(n^2) best
 
 function selectionSort(arr) {
     for(var i = 0; i < arr.length - 1; i++) {
