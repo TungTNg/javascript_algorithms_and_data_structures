@@ -12,8 +12,6 @@
 
 // Given a list of emails, we send one email to each address in the list.  How many different addresses actually receive mails? 
 
- 
-
 // Example 1:
 
 // Input: ["test.email+alex@leetcode.com","test.e.mail+bob.cathy@leetcode.com","testemail+david@lee.tcode.com"]
@@ -31,22 +29,48 @@
 
 
 var numUniqueEmails = function(emails) {
-    var emailArr = [];
+    var map = {};
     
     for(var email of emails) {
-        var address = email.split("@");
-        var local = address[0].split("+")[0].split(".").join("");
+        var bothNames = email.split("@");
+        var localName = bothNames[0].split("+")[0].split(".").join("");
+        var domainName = bothNames[1];
+        var sanitizedEmail = localName + "@" + domainName;
         
-        emailArr.push(local + "@" + address[1]);
+        map[sanitizedEmail] = true;
     }
     
-    var uniqueEmailCounter = {};
-    
-    for(var e of emailArr) {
-        uniqueEmailCounter[e] = (uniqueEmailCounter[e] || 0) + 1;
-    }
-    
-    return Object.keys(uniqueEmailCounter).length;    
+    return Object.keys(map).length;    
 };
+
+// var numUniqueEmails = function(emails) {
+//     var map = {};
+    
+//     for(var email of emails) {
+//         var sanitizedEmail = "";
+        
+//         for(var i = 0; i < email.length; i++) {
+//             if(email[i] == ".") {
+//                 continue;
+//             } else if (email[i] == "+") {
+//                 while(email[i] !== "@") {
+//                     i++;
+//                 }
+                
+//                 sanitizedEmail += email.substring(i);
+//                 break;
+//             } else if (email[i] == "@") {
+//                 sanitizedEmail += email.substring(i);
+//                 break;
+//             } else {
+//                 sanitizedEmail += email[i];
+//             }
+//         }
+        
+//         map[sanitizedEmail] = true;
+//     }
+    
+//     return Object.keys(map).length;
+// };
 
 console.log(numUniqueEmails(["fg.r.u.uzj+o.pw@kziczvh.com","r.cyo.g+d.h+b.ja@tgsg.z.com","fg.r.u.uzj+o.f.d@kziczvh.com","r.cyo.g+ng.r.iq@tgsg.z.com","fg.r.u.uzj+lp.k@kziczvh.com","r.cyo.g+n.h.e+n.g@tgsg.z.com","fg.r.u.uzj+k+p.j@kziczvh.com","fg.r.u.uzj+w.y+b@kziczvh.com","r.cyo.g+x+d.c+f.t@tgsg.z.com","r.cyo.g+x+t.y.l.i@tgsg.z.com","r.cyo.g+brxxi@tgsg.z.com","r.cyo.g+z+dr.k.u@tgsg.z.com","r.cyo.g+d+l.c.n+g@tgsg.z.com","fg.r.u.uzj+vq.o@kziczvh.com","fg.r.u.uzj+uzq@kziczvh.com","fg.r.u.uzj+mvz@kziczvh.com","fg.r.u.uzj+taj@kziczvh.com","fg.r.u.uzj+fek@kziczvh.com"]));
