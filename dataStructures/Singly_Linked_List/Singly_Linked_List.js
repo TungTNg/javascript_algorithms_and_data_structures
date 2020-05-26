@@ -33,6 +33,12 @@ class SinglyLinkedList {
         return this;
     }
     
+    // If there are no nodes in the list, return undefined
+    // Loop through the list until you reach the tail
+    // Set the next property of the 2nd to last node to be null
+    // Set the tail to be the 2nd to last node
+    // Decrement the length of the list by 1
+    // Return the value of the node removed
     pop() {
         if(!this.head) return undefined;
         var current = this.head;
@@ -50,6 +56,31 @@ class SinglyLinkedList {
         }
         return current;
     }
+    
+    // If there is no nodes, return undefined
+    // Store the current head property in a variable
+    // Set the head property to be the current head's next property
+    // Decrement the length by 1
+    // Return the value of the node removed
+    shift() {
+        if(!this.head) return undefined;
+        var currentHead = this.head;
+        this.head = this.head.next;
+        this.length--;
+        if(this.length === 0) {
+            this.head = null;
+        }
+        return currentHead;
+    }
+    
+    // traverse() {
+    //     var current = this.head;
+    //     while(current) {
+    //         console.log(current.val);
+    //         current = current.next;
+    //     }
+    // }
+    
 }
 
 // var first = new Node("Hi");
