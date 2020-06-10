@@ -68,18 +68,18 @@ class SinglyLinkedList {
         this.head = this.head.next;
         this.length--;
         if(this.length === 0) {
-            this.head = null;
+            this.tail = null;
         }
         return currentHead;
     }
     
-    // traverse() {
-    //     var current = this.head;
-    //     while(current) {
-    //         console.log(current.val);
-    //         current = current.next;
-    //     }
-    // }
+    traverse() {
+        var current = this.head;
+        while(current) {
+            console.log(current.val);
+            current = current.next;
+        }
+    }
     
 }
 
@@ -90,8 +90,9 @@ class SinglyLinkedList {
 
 var list = new SinglyLinkedList();
 list.push("HELLO");
-list.push("YOU");
-list.push("THERE");
+// list.push("YOU");
+// list.push("THERE");
+list.shift();
 // list.pop();
 // list.pop();
 // list.pop();

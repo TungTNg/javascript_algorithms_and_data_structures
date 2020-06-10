@@ -1,3 +1,1 @@
-var arr = [0, 1, 2];
-
-console.log(3 == arr[3]);
+console.log((79094888).toString(2));
