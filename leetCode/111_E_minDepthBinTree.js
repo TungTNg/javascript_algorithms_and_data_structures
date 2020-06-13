@@ -24,22 +24,22 @@ function TreeNode(val, left, right) {
 }
 
 // Recursion DFS Solution
-var minDepth = function(root) {
-    if(root == null) return 0;
+// var minDepth = function(root) {
+//     if(root == null) return 0;
     
-    var left = minDepth(root.left);
-    var right = minDepth(root.right);
+//     var left = minDepth(root.left);
+//     var right = minDepth(root.right);
     
-    if(root.left !== null & root.right !== null) {
-        return Math.min(left, right) + 1;
-    } else {
-        return Math.max(left, right) + 1;
-    }
+//     if(root.left !== null & root.right !== null) {
+//         return Math.min(left, right) + 1;
+//     } else {
+//         return Math.max(left, right) + 1;
+//     }
     
-};
+// };
 
 // BFS Solution
-/*
+
 var minDepth = function(root) {
     if(root == null) return 0;
     
@@ -49,7 +49,6 @@ var minDepth = function(root) {
     
     while(childrenNodes.length > 0) {
         var newChildrenNodes = [];
-        
         while(childrenNodes.length > 0) {
             var currentNode = childrenNodes.pop();
             
@@ -58,11 +57,11 @@ var minDepth = function(root) {
                 return depth;
             }
             
-            if(currentNode.left !== null) {
+            if(currentNode.left != null) {
                 newChildrenNodes.push(currentNode.left);
             }
             
-            if(currentNode.right !== null) {
+            if(currentNode.right != null) {
                 newChildrenNodes.push(currentNode.right);
             }
         }
@@ -73,10 +72,10 @@ var minDepth = function(root) {
     
     return depth;
 };
-*/
+
 
 function test() {
-    var tree = new TreeNode(1, 2, null);
+    var tree = new TreeNode(1, 3, new TreeNode(20, 15, 7));
     
     return minDepth(tree);
 }

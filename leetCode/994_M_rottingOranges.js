@@ -89,3 +89,4 @@ By the way, normally for BFS, the main space complexity lies in the process rath
 
 console.log(orangesRotting([[2,1,1],[1,1,0],[0,1,1]]));
 console.log(orangesRotting([[2,1,1],[0,1,1],[1,0,1]]));
+console.log(orangesRotting([[2,2,2,1,1]]));
