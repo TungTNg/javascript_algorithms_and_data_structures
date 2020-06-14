@@ -1,7 +1,9 @@
-var arr = [1, 2, [1, 2]];
+var map = {
+    "apple"     : 5,
+    "orange"    : 2,
+    "banana"    : 3
+};
 
-var lastElement = arr[2];
+var arr = Object.entries(map);
 
-lastElement[0] = 2;
-
-console.log(arr);
+console.log(arr.sort((a, b) => { return a[1] - b[1] }));
