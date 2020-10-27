@@ -45,7 +45,7 @@ var numIslands = function(grid) {
         grid[row][column] = '0';
         
         // go left
-        dfs(row, column - 1,);
+        dfs(row, column - 1);
         
         // go top
         dfs(row - 1, column);
